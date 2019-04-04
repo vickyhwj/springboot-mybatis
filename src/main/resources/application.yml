@@ -1,9 +1,15 @@
 server:
-  port: 8080
+  port: 8089
 
 
 spring:
     datasource:
+        secondary:
+          url: jdbc:mysql://localhost:3306/zpoaloacl1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+          username: root
+          password: root
+          driver-class-name: com.mysql.jdbc.Driver
+
         name: mysql_test
         type: com.alibaba.druid.pool.DruidDataSource
         #druid相关配置
@@ -12,7 +18,7 @@ spring:
           filters: stat
           driver-class-name: com.mysql.jdbc.Driver
           #基本属性
-          url: jdbc:mysql://127.0.0.1:3306/mytest?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+          url: jdbc:mysql://127.0.0.1:3306/zpoaloacl1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
           username: root
           password: root
           #配置初始化大小/最小/最大
@@ -36,6 +42,13 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.winterchen.model
+  configuration:
+   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+ level:
+  com.winterchen: DEBUG
+ root: DEBUG
 
 
 

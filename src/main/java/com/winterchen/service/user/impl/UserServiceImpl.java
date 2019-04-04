@@ -5,10 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.winterchen.dao.UserDao;
 import com.winterchen.model.UserDomain;
 import com.winterchen.service.user.UserService;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/8/16.
@@ -17,12 +21,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    SqlSessionTemplate sqlSessionTemplate;
+
+    @Autowired
     private UserDao userDao;//这里会报错，但是并不会影响
 
     @Override
     public int addUser(UserDomain user) {
-
+        System.out.println(sqlSessionTemplate);
         return userDao.insert(user);
+
     }
 
     /*
@@ -32,10 +40,12 @@ public class UserServiceImpl implements UserService {
     * pageSize 每页显示的数据条数
     * */
     @Override
-    public PageInfo<UserDomain> findAllUser(int pageNum, int pageSize) {
+    public PageInfo<UserDomain> findAllUser(int pageNum, int pageSize,String userName) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
         PageHelper.startPage(pageNum, pageSize);
-        List<UserDomain> userDomains = userDao.selectUsers();
+        Map map=new HashMap();
+        map.put("userName",userName);
+        List<UserDomain> userDomains = userDao.selectUsers(map);
         PageInfo result = new PageInfo(userDomains);
         return result;
     }

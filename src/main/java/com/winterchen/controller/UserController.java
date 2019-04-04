@@ -4,8 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.winterchen.model.UserDomain;
 import com.winterchen.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * Created by Administrator on 2017/8/16.
@@ -20,7 +23,8 @@ public class UserController {
     @ResponseBody
     @PostMapping("/add")
     public int addUser(UserDomain user){
-        return userService.addUser(user);
+         userService.addUser(user);
+         return  1;
     }
 
     @ResponseBody
@@ -29,7 +33,17 @@ public class UserController {
             @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                     int pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                    int pageSize){
-        return userService.findAllUser(pageNum,pageSize);
+                    int pageSize,
+            String userName){
+        return userService.findAllUser(pageNum,pageSize,userName);
+    }
+
+    @Resource(name = "secondJdbcTemplate")
+    JdbcTemplate secondJdbcTemplate;
+
+    @GetMapping("/testSec")
+    public String testSec(){
+        System.out.print(secondJdbcTemplate);
+        return "Sdasda";
     }
 }

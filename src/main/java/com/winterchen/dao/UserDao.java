@@ -5,6 +5,7 @@ import com.winterchen.model.UserDomain;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
 
@@ -13,5 +14,5 @@ public interface UserDao {
 
 
 
-    List<UserDomain> selectUsers();
+    List<UserDomain> selectUsers(Map paramMap);
 }
