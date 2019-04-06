@@ -12,3 +12,5 @@ public class Springboot2MybatisDemoApplication {
 		SpringApplication.run(Springboot2MybatisDemoApplication.class, args);
 	}
 }
+
+

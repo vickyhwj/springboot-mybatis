@@ -1,6 +1,13 @@
 server:
   port: 8089
 
+security:
+ oauth2:
+  client:
+   clientId: erp
+   clientSecret: yixin
+   scope: any
+   grant-type: all
 
 spring:
     datasource:
@@ -48,7 +55,10 @@ mybatis:
 logging:
  level:
   com.winterchen: DEBUG
+  org.springframework.security: DEBUG
  root: DEBUG
+ pattern:
+  console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t]){faint} %clr(%-40.40logger{39}){cyan}[lineno:%line]    %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
 
 
 
