@@ -18,9 +18,9 @@ spring:
         password: guest
         publisher-confirms: true #如果对异步消息需要回调必须设置为true
         publisher-returns: true
-        listener:
-              simple:
-                acknowledge-mode: manual
+#        listener:
+#              simple:
+#                acknowledge-mode: manual
 
     datasource:
         secondary:

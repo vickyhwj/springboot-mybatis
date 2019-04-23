@@ -1,6 +1,7 @@
 package com.winterchen;
 
 import com.winterchen.rabbit.OrderRabbitConfig;
+import com.winterchen.rabbit.hello.HelloReceiver;
 import com.winterchen.rabbit.hello.HelloSender;
 import com.winterchen.rabbit.order.OrderTtlProducer;
 import org.junit.Test;
@@ -18,6 +19,9 @@ public class Springboot2MybatisDemoApplicationTests {
 	OrderTtlProducer orderTtlProducer;
 
 	@Autowired
+	HelloSender helloSender;
+
+	@Autowired
 	private AmqpTemplate rabbitTemplate;
 
 	@Test
@@ -26,10 +30,12 @@ public class Springboot2MybatisDemoApplicationTests {
 
 	@Test
 	public void helloSend() throws InterruptedException {
-		for(int i=0;i<3;++i)
-			orderTtlProducer.send();
+		for(int i=0;i<3000;++i)
+			helloSender.send();
 
-		Thread.sleep(400000);
+
+		Thread.sleep(10000);
+		System.out.println(HelloReceiver.count);
 
 	}
 
