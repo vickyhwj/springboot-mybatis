@@ -10,6 +10,18 @@ security:
    grant-type: all
 
 spring:
+    rabbitmq:
+        host: localhost
+        port: 5672
+        virtual-host: /mall
+        username: guest
+        password: guest
+        publisher-confirms: true #如果对异步消息需要回调必须设置为true
+        publisher-returns: true
+        listener:
+              simple:
+                acknowledge-mode: manual
+
     datasource:
         secondary:
           url: jdbc:mysql://localhost:3306/zpoaloacl1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true

@@ -51,8 +51,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 			.logoutSuccessHandler(customerLogoutSuccessHandler())
 			.and()
 			.authorizeRequests()
-			.antMatchers("/imgs/**").permitAll()
-			.antMatchers("/user/**").hasRole("ADMIN");
+			.antMatchers("/user/**").permitAll();
+		//	.antMatchers("/user/**").hasRole("ADMIN");
 		http.addFilterAt(new MyAnonymousFilter(userDetailsService), AnonymousAuthenticationFilter.class);
 
 	}

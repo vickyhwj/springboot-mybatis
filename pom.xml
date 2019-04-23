@@ -50,6 +50,11 @@
 			<version>3.4</version>
 		</dependency>
 
+		<!--集成消息队列-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

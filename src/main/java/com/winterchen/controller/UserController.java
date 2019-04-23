@@ -1,14 +1,17 @@
 package com.winterchen.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.winterchen.model.Performance;
 import com.winterchen.model.UserDomain;
 import com.winterchen.service.user.UserService;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/16.
@@ -45,5 +48,14 @@ public class UserController {
     public String testSec(){
         System.out.print(secondJdbcTemplate);
         return "Sdasda";
+    }
+
+    @Autowired
+    SqlSessionTemplate sqlSessionTemplate;
+
+    @GetMapping("/peformance")
+    public String findPerformance(){
+        List<Performance> performances = sqlSessionTemplate.selectList("com.winterchen.dao.performance.findPerformance");
+        return performances.toString();
     }
 }
