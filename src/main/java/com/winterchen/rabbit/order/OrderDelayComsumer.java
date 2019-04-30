@@ -3,6 +3,7 @@ package com.winterchen.rabbit.order;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.winterchen.rabbit.OrderRabbitConfig;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -20,8 +21,10 @@ import java.util.Map;
 @RabbitListener(queues = OrderRabbitConfig.orderDelayQueue)
 public class OrderDelayComsumer {
     @RabbitHandler
-    public void recive(String message, Channel channel,@Headers Map<String,Object> map) throws  Exception {
-        System.out.println(message);
+    public void recive(String text, Message message, Channel channel, @Headers Map<String,Object> map) throws  Exception {
+        System.out.println(System.currentTimeMillis());
+        System.out.println(text);
+        System.out.print(message);
 //        if (map.get("error")!= null){
 //            System.out.println("错误的消息");
 //            try {

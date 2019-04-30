@@ -10,6 +10,8 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,7 +43,9 @@ public class Springboot2MybatisDemoApplicationTests {
 
 	@Test
 	public void sendOrderDelay() throws InterruptedException {
-		rabbitTemplate.convertAndSend(OrderRabbitConfig.orderDelayRoute,"fuck");
+		//rabbitTemplate.convertAndSend(OrderRabbitConfig.orderDelayRoute,"fuck");
 		java.lang.Thread.sleep(300000);
 	}
+
+
 }

@@ -6,8 +6,6 @@ import com.winterchen.service.user.UserService;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +16,8 @@ import java.util.List;
  * Created by Administrator on 2017/8/16.
  */
 @Controller
-@RequestMapping(value = "/user")
-public class UserController {
+@RequestMapping(value = "/admin")
+public class AdminController {
 
     @Autowired
     private UserService userService;
@@ -58,11 +56,5 @@ public class UserController {
     public String findPerformance(){
         List<Performance> performances = sqlSessionTemplate.selectList("com.winterchen.dao.performance.findPerformance");
         return performances.toString();
-    }
-
-    @ResponseBody
-    @GetMapping("/info")
-    public UserDetails info(){
-        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

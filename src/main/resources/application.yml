@@ -9,6 +9,7 @@ security:
    scope: any
    grant-type: all
 
+
 spring:
     rabbitmq:
         host: localhost

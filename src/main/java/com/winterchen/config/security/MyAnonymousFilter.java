@@ -1,6 +1,7 @@
 package com.winterchen.config.security;
 
-import com.winterchen.util.ReqHolder;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.catalina.servlet4preview.http.HttpServletRequestWrapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -19,6 +19,19 @@ public class MyAnonymousFilter implements Filter {
     UserDetailsService userDetailsService;
 
     public MyAnonymousFilter(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+
+    public MyAnonymousFilter() {
+        System.out.print("MyAnonymousFilterL:"+this);
+    }
+
+    public UserDetailsService getUserDetailsService() {
+        return userDetailsService;
+    }
+
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -36,7 +49,18 @@ public class MyAnonymousFilter implements Filter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),auths);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+        HttpServletRequest request=new HttpServletRequestWrapper((javax.servlet.http.HttpServletRequest) servletRequest){
+            @Override
+            public String getRequestURI() {
+                return super.getRequestURI().replace("/jj","");
+            }
+
+            @Override
+            public String getServletPath() {
+                return super.getServletPath().replace("/jj","");
+            }
+        };
+        filterChain.doFilter(request, servletResponse);
     }
 
     @Override

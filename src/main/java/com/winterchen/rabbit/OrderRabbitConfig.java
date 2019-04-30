@@ -24,7 +24,7 @@ public class OrderRabbitConfig {
     @Bean
     public Queue orderTtlQueue(){
         Map<String,Object> args=new HashMap<>();
-        args.put("x-message-ttl",60000);
+        args.put("x-message-ttl",5000);
         args.put("x-dead-letter-exchange",orderDelayExchange);
         args.put("x-dead-letter-routing-key",orderDelayRoute);
         return new Queue(orderTtlQueue,true,false,false,args);
